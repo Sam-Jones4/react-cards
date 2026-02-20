@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Tabs from "./components/Tabs";
+import CategoryView from "./components/CategoryView";
+import { quotes } from "./data/Quotes";
+import "./App.css";
 
 function App() {
+  const tabLabels = ["By Theme", "By Author", "By Time"];
+  const [activeTab, setActiveTab] = useState("By Theme");
+
+  const typeMap = {
+    "By Theme": "byTheme",
+    "By Author": "byAuthor",
+    "By Time": "byTime"
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Quote Cards</h1>
+      <Tabs tabs={tabLabels} activeTab={activeTab} setActiveTab={setActiveTab} />
+      <CategoryView quotes={quotes} type={typeMap[activeTab]} />
     </div>
   );
 }
